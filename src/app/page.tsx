@@ -69,51 +69,53 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold mb-8">Hello, World!</h1>
+    <main className="min-h-screen bg-white text-black">
+      <div className="container mx-auto px-4 py-16">
+        <h1 className="text-4xl font-bold mb-8 text-center">Hello, World!</h1>
 
-      <form onSubmit={handleSubmit} className="mb-8">
-        <input
-          type="text"
-          value={newWord}
-          onChange={(e) => setNewWord(e.target.value)}
-          placeholder="Add a word..."
-          className="px-4 py-2 border rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
-          disabled={isLoading}
-        />
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-r hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300"
-          disabled={isLoading}
-        >
-          {isLoading ? 'Adding...' : 'Add'}
-        </button>
-      </form>
+        <form onSubmit={handleSubmit} className="mb-8 flex justify-center">
+          <input
+            type="text"
+            value={newWord}
+            onChange={(e) => setNewWord(e.target.value)}
+            placeholder="Add a word..."
+            className="px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isLoading}
+          />
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-500 text-white rounded-r hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Adding...' : 'Add'}
+          </button>
+        </form>
 
-      {error && (
-        <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
-          Error: {error}
-        </div>
-      )}
-
-      <div className="w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-4">Words:</h2>
-        {isLoading ? (
-          <div className="text-center py-4">Loading...</div>
-        ) : words.length === 0 ? (
-          <div className="text-center py-4 text-gray-500">No words added yet</div>
-        ) : (
-          <ul className="space-y-2">
-            {words.map((word, index) => (
-              <li
-                key={index}
-                className="p-3 bg-gray-100 rounded shadow-sm hover:shadow-md transition-shadow"
-              >
-                {word.text}
-              </li>
-            ))}
-          </ul>
+        {error && (
+          <div className="mb-4 p-4 bg-red-100 text-red-700 rounded max-w-md mx-auto">
+            Error: {error}
+          </div>
         )}
+
+        <div className="max-w-md mx-auto">
+          <h2 className="text-2xl font-semibold mb-4 text-center">Words:</h2>
+          {isLoading ? (
+            <div className="text-center py-4 text-gray-600">Loading...</div>
+          ) : words.length === 0 ? (
+            <div className="text-center py-4 text-gray-500">No words added yet</div>
+          ) : (
+            <ul className="space-y-2">
+              {words.map((word, index) => (
+                <li
+                  key={index}
+                  className="p-3 bg-gray-50 border border-gray-200 rounded shadow-sm hover:shadow-md transition-shadow"
+                >
+                  {word.text}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </main>
   );
