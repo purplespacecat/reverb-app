@@ -1,22 +1,118 @@
 # Hello Next.js
 
-This is a simple Next.js project with a Hello World page, using TypeScript, Tailwind CSS, and the App Router.
+This is a full-stack application with a Next.js frontend and Go backend, featuring a word list management system.
 
-## Getting Started
-
-### 1. Install dependencies
+## Project Structure
 
 ```
-npm install
+.
+├── src/                # Next.js frontend
+│   └── app/           # App Router pages
+├── backend/           # Go backend server
+│   └── main.go        # Backend API implementation
+└── README.md
 ```
 
-### 2. Run the development server
+## Backend Setup (Go)
 
-```
-npm run dev
-```
+### Prerequisites
+
+- Go 1.22 or later
+- Git
+
+### Installation
+
+1. Install Go:
+   ```bash
+   # For Ubuntu/Debian
+   wget https://go.dev/dl/go1.22.1.linux-amd64.tar.gz
+   sudo rm -rf /usr/local/go
+   sudo tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz
+   echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+   source ~/.bashrc
+   ```
+
+2. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+3. Run the Go server:
+   ```bash
+   go run main.go
+   ```
+
+The backend server will start on `http://localhost:8080` with the following endpoints:
+- `GET /api/words` - Get all words
+- `POST /api/words/add` - Add a new word
+
+## Frontend Setup (Next.js)
+
+### Prerequisites
+
+- Node.js 18 or later
+- npm or yarn
+
+### Installation
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
+## Running the Full Stack
+
+1. Start the backend server:
+   ```bash
+   cd backend
+   go run main.go
+   ```
+
+2. In a new terminal, start the frontend:
+   ```bash
+   npm run dev
+   ```
+
+3. The application will be available at:
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:8080
+
+## API Endpoints
+
+### GET /api/words
+Returns a list of all words.
+
+Response:
+```json
+[
+  { "text": "Hello" },
+  { "text": "World" }
+]
+```
+
+### POST /api/words/add
+Adds a new word to the list.
+
+Request:
+```json
+{
+  "text": "New Word"
+}
+```
+
+Response:
+```json
+{
+  "text": "New Word"
+}
+```
 
 ## Creating New Routes (Pages)
 
@@ -36,16 +132,9 @@ export default function AboutPage() {
 
 Now, visiting [http://localhost:3000/about](http://localhost:3000/about) will show your new page.
 
-## Project Structure
-
-- `src/app/` — Main app directory (routes/pages)
-- `src/app/page.tsx` — Home page (`/`)
-- `src/app/[route]/page.tsx` — New route (e.g., `/about`)
-- `src/app/layout.tsx` — Root layout (shared across all pages)
-- `src/app/globals.css` — Global styles (includes Tailwind CSS)
-
 ## Learn More
 
 - [Next.js Documentation](https://nextjs.org/docs)
 - [App Router Docs](https://nextjs.org/docs/app/building-your-application/routing)
 - [Tailwind CSS Docs](https://tailwindcss.com/docs)
+- [Go Documentation](https://golang.org/doc/)
