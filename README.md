@@ -1,6 +1,6 @@
 # Hello Next.js
 
-This is a full-stack application with a Next.js frontend and Go backend, featuring a word list management system.
+This is a full-stack application with a Next.js frontend and Node.js/Express backend, featuring a word list management system.
 
 ## Project Structure
 
@@ -8,38 +8,35 @@ This is a full-stack application with a Next.js frontend and Go backend, featuri
 .
 ├── src/                # Next.js frontend
 │   └── app/           # App Router pages
-├── backend/           # Go backend server
-│   └── main.go        # Backend API implementation
+├── backend/           # Node.js/Express backend
+│   └── server.js      # Backend API implementation
+├── public/            # Static files
+├── package.json       # Frontend dependencies
 └── README.md
 ```
 
-## Backend Setup (Go)
+## Backend Setup (Node.js/Express)
 
 ### Prerequisites
 
-- Go 1.22 or later
-- Git
+- Node.js 18 or later
+- npm or yarn
 
 ### Installation
 
-1. Install Go:
-   ```bash
-   # For Ubuntu/Debian
-   wget https://go.dev/dl/go1.22.1.linux-amd64.tar.gz
-   sudo rm -rf /usr/local/go
-   sudo tar -C /usr/local -xzf go1.22.1.linux-amd64.tar.gz
-   echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
-   source ~/.bashrc
-   ```
-
-2. Navigate to the backend directory:
+1. Navigate to the backend directory:
    ```bash
    cd backend
    ```
 
-3. Run the Go server:
+2. Install dependencies:
    ```bash
-   go run main.go
+   npm install express cors
+   ```
+
+3. Run the Express server:
+   ```bash
+   node server.js
    ```
 
 The backend server will start on `http://localhost:8080` with the following endpoints:
@@ -72,7 +69,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the r
 1. Start the backend server:
    ```bash
    cd backend
-   go run main.go
+   node server.js
    ```
 
 2. In a new terminal, start the frontend:
@@ -136,5 +133,5 @@ Now, visiting [http://localhost:3000/about](http://localhost:3000/about) will sh
 
 - [Next.js Documentation](https://nextjs.org/docs)
 - [App Router Docs](https://nextjs.org/docs/app/building-your-application/routing)
-- [Tailwind CSS Docs](https://tailwindcss.com/docs)
-- [Go Documentation](https://golang.org/doc/)
+- [Express.js Documentation](https://expressjs.com/)
+- [CORS Documentation](https://expressjs.com/en/resources/middleware/cors.html)
