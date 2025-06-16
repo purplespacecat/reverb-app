@@ -1,122 +1,21 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-
-interface Word {
-  text: string;
-}
-
 export default function Home() {
-  const [words, setWords] = useState<Word[]>([]);
-  const [newWord, setNewWord] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchWords();
-  }, []);
-
-  const fetchWords = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      console.log('Fetching words from backend...');
-      const response = await fetch('http://localhost:8080/api/words');
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      console.log('Received words:', data);
-      setWords(data);
-    } catch (error) {
-      console.error('Error fetching words:', error);
-      setError(error instanceof Error ? error.message : 'Failed to fetch words');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newWord.trim()) return;
-
-    setIsLoading(true);
-    setError(null);
-    try {
-      console.log('Sending word to backend:', newWord);
-      const response = await fetch('http://localhost:8080/api/words/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ text: newWord }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log('Word added successfully:', data);
-      setNewWord('');
-      fetchWords();
-    } catch (error) {
-      console.error('Error adding word:', error);
-      setError(error instanceof Error ? error.message : 'Failed to add word');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
-    <main className="min-h-screen bg-white text-black">
-      <div className="container mx-auto px-4 py-16">
-        <h1 className="text-4xl font-bold mb-8 text-center">Hello, World!</h1>
-
-        <form onSubmit={handleSubmit} className="mb-8 flex justify-center">
-          <input
-            type="text"
-            value={newWord}
-            onChange={(e) => setNewWord(e.target.value)}
-            placeholder="Add a word..."
-            className="px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-500"
-            disabled={isLoading}
-          />
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-r hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-blue-300"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Adding...' : 'Add'}
-          </button>
-        </form>
-
-        {error && (
-          <div className="mb-4 p-4 bg-red-100 text-red-700 rounded max-w-md mx-auto">
-            Error: {error}
-          </div>
-        )}
-
-        <div className="max-w-md mx-auto">
-          <h2 className="text-2xl font-semibold mb-4 text-center">Words:</h2>
-          {isLoading ? (
-            <div className="text-center py-4 text-gray-600">Loading...</div>
-          ) : words.length === 0 ? (
-            <div className="text-center py-4 text-gray-500">No words added yet</div>
-          ) : (
-            <ul className="space-y-2">
-              {words.map((word, index) => (
-                <li
-                  key={index}
-                  className="p-3 bg-gray-50 border border-gray-200 rounded shadow-sm hover:shadow-md transition-shadow"
-                >
-                  {word.text}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+    <div className="space-y-6">
+      <h1 className="text-4xl font-bold text-gray-900">Welcome to Hello Next</h1>
+      <p className="text-xl text-gray-700">
+        A simple application to manage your favorite words.
+      </p>
+      <div className="bg-white shadow rounded-lg p-6 border border-emerald-100">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-900">Getting Started</h2>
+        <p className="text-gray-700 mb-4">
+          Click on the "Words" link in the navigation bar to start managing your word list.
+        </p>
+        <ul className="list-disc list-inside space-y-2 text-gray-700">
+          <li>Add new words to your collection</li>
+          <li>View all your saved words</li>
+          <li>Keep track of your favorite vocabulary</li>
+        </ul>
       </div>
-    </main>
+    </div>
   );
 }
