@@ -12,9 +12,9 @@ export default function WordsPage() {
 
   const fetchWords = async () => {
     try {
-      const response = await fetch('http://localhost:8080/words');
+      const response = await fetch('http://localhost:8080/api/words');
       const data = await response.json();
-      setWords(data);
+      setWords(data.map((word: { text: string }) => word.text));
     } catch (error) {
       console.error('Error fetching words:', error);
     }
@@ -25,12 +25,12 @@ export default function WordsPage() {
     if (!newWord.trim()) return;
 
     try {
-      const response = await fetch('http://localhost:8080/words', {
+      const response = await fetch('http://localhost:8080/api/words/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ word: newWord }),
+        body: JSON.stringify({ text: newWord }),
       });
 
       if (response.ok) {
